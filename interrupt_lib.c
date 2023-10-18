@@ -15,7 +15,7 @@ void external_intr_config(void)
 	*/
 	MCUCR |= (1 << ISC11);
 	MCUCR &= ~(1 << ISC10);
-	GICR |= (1 << INT1);
-	DDRD &= ~(1 << PD3);
-	PORTD |= (1 << PD3);
+	GICR = (1 << INT1);
+	DDRD &= ~(1 << EXT_INTR_PIN_ONE);
+	PORTD |= (1 << EXT_INTR_PIN_ONE);
 }

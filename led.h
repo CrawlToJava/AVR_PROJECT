@@ -11,6 +11,7 @@
 #include <stdbool.h>
 
 #define LED_PIN PC1
+#define INTR_LED_PIN PC5
 
 void led_config(void);
 

@@ -21,8 +21,8 @@ void led_config(void)
 	* DDRX |= (1 << PINX) - установка в логическую единицу pinMode(PINX, 1);
 	* DDRX &= ~(1 << PINX) - сброс в 0 pinMode(PINX, 0);
 	*/
-	DDRC |= (1 << LED_PIN) | (1 << PC5);
-	PORTC &= ~((1 << LED_PIN) | (1 << PC5));
+	DDRC |= (1 << LED_PIN) | (1 << INTR_LED_PIN);
+	PORTC &= ~((1 << LED_PIN) | (1 << INTR_LED_PIN));
 }
 
 void led_func(bool* is_button_pressed) 

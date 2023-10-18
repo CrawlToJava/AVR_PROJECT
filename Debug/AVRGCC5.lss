@@ -3,31 +3,31 @@ AVRGCC5.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000000dc  00000000  00000000  00000074  2**1
+  0 .text         00000126  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .bss          00000002  00800060  00800060  00000150  2**0
+  1 .bss          00000002  00800060  00800060  0000019a  2**0
                   ALLOC
-  2 .stab         000006cc  00000000  00000000  00000150  2**2
+  2 .stab         000006cc  00000000  00000000  0000019c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  3 .stabstr      00000090  00000000  00000000  0000081c  2**0
+  3 .stabstr      00000090  00000000  00000000  00000868  2**0
                   CONTENTS, READONLY, DEBUGGING
-  4 .debug_aranges 00000080  00000000  00000000  000008ac  2**0
+  4 .debug_aranges 00000080  00000000  00000000  000008f8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_pubnames 000000f3  00000000  00000000  0000092c  2**0
+  5 .debug_pubnames 000000f3  00000000  00000000  00000978  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000389  00000000  00000000  00000a1f  2**0
+  6 .debug_info   000004e8  00000000  00000000  00000a6b  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000265  00000000  00000000  00000da8  2**0
+  7 .debug_abbrev 00000316  00000000  00000000  00000f53  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000004a5  00000000  00000000  0000100d  2**0
+  8 .debug_line   00000591  00000000  00000000  00001269  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000000b0  00000000  00000000  000014b4  2**2
+  9 .debug_frame  000000b0  00000000  00000000  000017fc  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000199  00000000  00000000  00001564  2**0
+ 10 .debug_str    000001cd  00000000  00000000  000018ac  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000006e  00000000  00000000  000016fd  2**0
+ 11 .debug_loc    00000146  00000000  00000000  00001a79  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_pubtypes 00000092  00000000  00000000  0000176b  2**0
+ 12 .debug_pubtypes 000000ac  00000000  00000000  00001bbf  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -75,7 +75,7 @@ Disassembly of section .text:
   3e:	b1 07       	cpc	r27, r17
   40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
   42:	11 d0       	rcall	.+34     	; 0x66 <main>
-  44:	49 c0       	rjmp	.+146    	; 0xd8 <_exit>
+  44:	6e c0       	rjmp	.+220    	; 0x122 <_exit>
 
 00000046 <__bad_interrupt>:
   46:	dc cf       	rjmp	.-72     	; 0x0 <__vectors>
@@ -108,138 +108,192 @@ ISR(INT1_vect)
 
 int main(void)
 {
+  66:	cf 93       	push	r28
+  68:	df 93       	push	r29
 	led_config();
-  66:	28 d0       	rcall	.+80     	; 0xb8 <led_config>
+  6a:	4b d0       	rcall	.+150    	; 0x102 <led_config>
 	button_config();
-  68:	0c d0       	rcall	.+24     	; 0x82 <button_config>
+  6c:	30 d0       	rcall	.+96     	; 0xce <button_config>
 	external_intr_config();
-  6a:	1a d0       	rcall	.+52     	; 0xa0 <external_intr_config>
+  6e:	3e d0       	rcall	.+124    	; 0xec <external_intr_config>
 	sei();
-  6c:	78 94       	sei
+  70:	78 94       	sei
+			PORTC &= ~(1 << PC5);
+			itr_is_button_pressed = false;
+		} else {
+			PORTC &= ~(1 << PC5);
+		}
+		check_button_pin_status(&is_button_pressed);
+  72:	c0 e6       	ldi	r28, 0x60	; 96
+  74:	d0 e0       	ldi	r29, 0x00	; 0
+	button_config();
+	external_intr_config();
+	sei();
     while(1)
     {
 		if (itr_is_button_pressed)
-  6e:	80 91 61 00 	lds	r24, 0x0061
-  72:	88 23       	and	r24, r24
-  74:	21 f0       	breq	.+8      	; 0x7e <main+0x18>
+  76:	80 91 61 00 	lds	r24, 0x0061
+  7a:	88 23       	and	r24, r24
+  7c:	11 f1       	breq	.+68     	; 0xc2 <main+0x5c>
 		{
 			PORTC |= (1 << PC5);
-  76:	ad 9a       	sbi	0x15, 5	; 21
-			itr_is_button_pressed = false;
-  78:	10 92 61 00 	sts	0x0061, r1
-  7c:	f8 cf       	rjmp	.-16     	; 0x6e <main+0x8>
-		}	
-		else 
-		{
-			PORTC &= ~(1 << PC5);
-  7e:	ad 98       	cbi	0x15, 5	; 21
-  80:	f6 cf       	rjmp	.-20     	; 0x6e <main+0x8>
-
-00000082 <button_config>:
-#include <avr/io.h>
-#include <avr/delay.h>
-
-void button_config(void) 
-{
-	DDRD &= ~(1 << BUTTON_PIN);
-  82:	8a 98       	cbi	0x11, 2	; 17
-	PORTD |= (1 << BUTTON_PIN); 
-  84:	92 9a       	sbi	0x12, 2	; 18
-}
-  86:	08 95       	ret
-
-00000088 <check_button_pin_status>:
-
-void check_button_pin_status(bool* is_button_pressed) 
-{
-	if (~PIND & (1 << BUTTON_PIN))
-  88:	82 99       	sbic	0x10, 2	; 16
-  8a:	09 c0       	rjmp	.+18     	; 0x9e <check_button_pin_status+0x16>
+  7e:	ad 9a       	sbi	0x15, 5	; 21
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-  8c:	e3 ed       	ldi	r30, 0xD3	; 211
-  8e:	f0 e3       	ldi	r31, 0x30	; 48
-  90:	31 97       	sbiw	r30, 0x01	; 1
-  92:	f1 f7       	brne	.-4      	; 0x90 <check_button_pin_status+0x8>
-  94:	00 c0       	rjmp	.+0      	; 0x96 <check_button_pin_status+0xe>
-  96:	00 00       	nop
+  80:	8f e3       	ldi	r24, 0x3F	; 63
+  82:	9d e0       	ldi	r25, 0x0D	; 13
+  84:	a3 e0       	ldi	r26, 0x03	; 3
+  86:	81 50       	subi	r24, 0x01	; 1
+  88:	90 40       	sbci	r25, 0x00	; 0
+  8a:	a0 40       	sbci	r26, 0x00	; 0
+  8c:	e1 f7       	brne	.-8      	; 0x86 <main+0x20>
+  8e:	00 c0       	rjmp	.+0      	; 0x90 <main+0x2a>
+  90:	00 00       	nop
+			_delay_ms(1000);
+			PORTC &= ~(1 << PC5);
+  92:	ad 98       	cbi	0x15, 5	; 21
+  94:	8f e3       	ldi	r24, 0x3F	; 63
+  96:	9d e0       	ldi	r25, 0x0D	; 13
+  98:	a3 e0       	ldi	r26, 0x03	; 3
+  9a:	81 50       	subi	r24, 0x01	; 1
+  9c:	90 40       	sbci	r25, 0x00	; 0
+  9e:	a0 40       	sbci	r26, 0x00	; 0
+  a0:	e1 f7       	brne	.-8      	; 0x9a <main+0x34>
+  a2:	00 c0       	rjmp	.+0      	; 0xa4 <main+0x3e>
+  a4:	00 00       	nop
+			_delay_ms(1000);
+			PORTC |= (1 << PC5);
+  a6:	ad 9a       	sbi	0x15, 5	; 21
+  a8:	8f e3       	ldi	r24, 0x3F	; 63
+  aa:	9d e0       	ldi	r25, 0x0D	; 13
+  ac:	a3 e0       	ldi	r26, 0x03	; 3
+  ae:	81 50       	subi	r24, 0x01	; 1
+  b0:	90 40       	sbci	r25, 0x00	; 0
+  b2:	a0 40       	sbci	r26, 0x00	; 0
+  b4:	e1 f7       	brne	.-8      	; 0xae <main+0x48>
+  b6:	00 c0       	rjmp	.+0      	; 0xb8 <main+0x52>
+  b8:	00 00       	nop
+			_delay_ms(1000);
+			PORTC &= ~(1 << PC5);
+  ba:	ad 98       	cbi	0x15, 5	; 21
+			itr_is_button_pressed = false;
+  bc:	10 92 61 00 	sts	0x0061, r1
+  c0:	01 c0       	rjmp	.+2      	; 0xc4 <main+0x5e>
+		} else {
+			PORTC &= ~(1 << PC5);
+  c2:	ad 98       	cbi	0x15, 5	; 21
+		}
+		check_button_pin_status(&is_button_pressed);
+  c4:	ce 01       	movw	r24, r28
+  c6:	06 d0       	rcall	.+12     	; 0xd4 <check_button_pin_status>
+		led_func(&is_button_pressed);
+  c8:	ce 01       	movw	r24, r28
+  ca:	22 d0       	rcall	.+68     	; 0x110 <led_func>
+    }
+  cc:	d4 cf       	rjmp	.-88     	; 0x76 <main+0x10>
+
+000000ce <button_config>:
+#include <avr/io.h>
+#include <avr/delay.h>
+
+void button_config(void) 
+{
+	DDRD &= ~(1 << BUTTON_PIN);
+  ce:	8a 98       	cbi	0x11, 2	; 17
+	PORTD |= (1 << BUTTON_PIN); 
+  d0:	92 9a       	sbi	0x12, 2	; 18
+}
+  d2:	08 95       	ret
+
+000000d4 <check_button_pin_status>:
+
+void check_button_pin_status(bool* is_button_pressed) 
+{
+	if (~PIND & (1 << BUTTON_PIN))
+  d4:	82 99       	sbic	0x10, 2	; 16
+  d6:	09 c0       	rjmp	.+18     	; 0xea <check_button_pin_status+0x16>
+  d8:	e3 ed       	ldi	r30, 0xD3	; 211
+  da:	f0 e3       	ldi	r31, 0x30	; 48
+  dc:	31 97       	sbiw	r30, 0x01	; 1
+  de:	f1 f7       	brne	.-4      	; 0xdc <check_button_pin_status+0x8>
+  e0:	00 c0       	rjmp	.+0      	; 0xe2 <check_button_pin_status+0xe>
+  e2:	00 00       	nop
 	{
 		_delay_ms(50);
 		*(is_button_pressed) = true;
-  98:	21 e0       	ldi	r18, 0x01	; 1
-  9a:	fc 01       	movw	r30, r24
-  9c:	20 83       	st	Z, r18
-  9e:	08 95       	ret
+  e4:	21 e0       	ldi	r18, 0x01	; 1
+  e6:	fc 01       	movw	r30, r24
+  e8:	20 83       	st	Z, r18
+  ea:	08 95       	ret
 
-000000a0 <external_intr_config>:
+000000ec <external_intr_config>:
 void external_intr_config(void) 
 {
 	/*
 	* MCUCR - The MCU Control Register contains control bits for interrupt sense control
 	*/
 	MCUCR |= (1 << ISC11);
-  a0:	85 b7       	in	r24, 0x35	; 53
-  a2:	88 60       	ori	r24, 0x08	; 8
-  a4:	85 bf       	out	0x35, r24	; 53
+  ec:	85 b7       	in	r24, 0x35	; 53
+  ee:	88 60       	ori	r24, 0x08	; 8
+  f0:	85 bf       	out	0x35, r24	; 53
 	MCUCR &= ~(1 << ISC10);
-  a6:	85 b7       	in	r24, 0x35	; 53
-  a8:	8b 7f       	andi	r24, 0xFB	; 251
-  aa:	85 bf       	out	0x35, r24	; 53
-	GICR |= (1 << INT1);
-  ac:	8b b7       	in	r24, 0x3b	; 59
-  ae:	80 68       	ori	r24, 0x80	; 128
-  b0:	8b bf       	out	0x3b, r24	; 59
-	DDRD &= ~(1 << PD3);
-  b2:	8b 98       	cbi	0x11, 3	; 17
-	PORTD |= (1 << PD3);
-  b4:	93 9a       	sbi	0x12, 3	; 18
-  b6:	08 95       	ret
+  f2:	85 b7       	in	r24, 0x35	; 53
+  f4:	8b 7f       	andi	r24, 0xFB	; 251
+  f6:	85 bf       	out	0x35, r24	; 53
+	GICR = (1 << INT1);
+  f8:	80 e8       	ldi	r24, 0x80	; 128
+  fa:	8b bf       	out	0x3b, r24	; 59
+	DDRD &= ~(1 << EXT_INTR_PIN_ONE);
+  fc:	8b 98       	cbi	0x11, 3	; 17
+	PORTD |= (1 << EXT_INTR_PIN_ONE);
+  fe:	93 9a       	sbi	0x12, 3	; 18
+ 100:	08 95       	ret
 
-000000b8 <led_config>:
+00000102 <led_config>:
 {
 	/*
 	* DDRX |= (1 << PINX) - установка в логическую единицу pinMode(PINX, 1);
 	* DDRX &= ~(1 << PINX) - сброс в 0 pinMode(PINX, 0);
 	*/
-	DDRC |= (1 << LED_PIN) | (1 << PC5);
-  b8:	84 b3       	in	r24, 0x14	; 20
-  ba:	82 62       	ori	r24, 0x22	; 34
-  bc:	84 bb       	out	0x14, r24	; 20
-	PORTC &= ~((1 << LED_PIN) | (1 << PC5));
-  be:	85 b3       	in	r24, 0x15	; 21
-  c0:	8d 7d       	andi	r24, 0xDD	; 221
-  c2:	85 bb       	out	0x15, r24	; 21
+	DDRC |= (1 << LED_PIN) | (1 << INTR_LED_PIN);
+ 102:	84 b3       	in	r24, 0x14	; 20
+ 104:	82 62       	ori	r24, 0x22	; 34
+ 106:	84 bb       	out	0x14, r24	; 20
+	PORTC &= ~((1 << LED_PIN) | (1 << INTR_LED_PIN));
+ 108:	85 b3       	in	r24, 0x15	; 21
+ 10a:	8d 7d       	andi	r24, 0xDD	; 221
+ 10c:	85 bb       	out	0x15, r24	; 21
 }
-  c4:	08 95       	ret
+ 10e:	08 95       	ret
 
-000000c6 <led_func>:
+00000110 <led_func>:
 
 void led_func(bool* is_button_pressed) 
 {
-  c6:	fc 01       	movw	r30, r24
+ 110:	fc 01       	movw	r30, r24
 	if (*(is_button_pressed))
-  c8:	80 81       	ld	r24, Z
-  ca:	88 23       	and	r24, r24
-  cc:	19 f0       	breq	.+6      	; 0xd4 <led_func+0xe>
+ 112:	80 81       	ld	r24, Z
+ 114:	88 23       	and	r24, r24
+ 116:	19 f0       	breq	.+6      	; 0x11e <led_func+0xe>
 	{
 		PORTC |= (1 << LED_PIN);
-  ce:	a9 9a       	sbi	0x15, 1	; 21
+ 118:	a9 9a       	sbi	0x15, 1	; 21
 		*(is_button_pressed) = false;
-  d0:	10 82       	st	Z, r1
-  d2:	08 95       	ret
+ 11a:	10 82       	st	Z, r1
+ 11c:	08 95       	ret
 	}
 	else 
 	{
 		PORTC &= ~(1 << LED_PIN);
-  d4:	a9 98       	cbi	0x15, 1	; 21
-  d6:	08 95       	ret
+ 11e:	a9 98       	cbi	0x15, 1	; 21
+ 120:	08 95       	ret
 
-000000d8 <_exit>:
-  d8:	f8 94       	cli
+00000122 <_exit>:
+ 122:	f8 94       	cli
 
-000000da <__stop_program>:
-  da:	ff cf       	rjmp	.-2      	; 0xda <__stop_program>
+00000124 <__stop_program>:
+ 124:	ff cf       	rjmp	.-2      	; 0x124 <__stop_program>

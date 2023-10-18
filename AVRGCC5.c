@@ -11,7 +11,6 @@
 #include "button.h"
 #include "interrupt_lib.h"
 #include <avr/interrupt.h>
-#define F_CPU 8000000UL
 
 bool is_button_pressed = false;
 bool itr_is_button_pressed = false;
@@ -32,10 +31,14 @@ int main(void)
 		if (itr_is_button_pressed)
 		{
 			PORTC |= (1 << PC5);
+			_delay_ms(1000);
+			PORTC &= ~(1 << PC5);
+			_delay_ms(1000);
+			PORTC |= (1 << PC5);
+			_delay_ms(1000);
+			PORTC &= ~(1 << PC5);
 			itr_is_button_pressed = false;
-		}	
-		else 
-		{
+		} else {
 			PORTC &= ~(1 << PC5);
 		}
 		check_button_pin_status(&is_button_pressed);

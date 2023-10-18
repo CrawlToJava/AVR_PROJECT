@@ -118,7 +118,7 @@ LOAD d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000       0xdc
+.text           0x00000000      0x126
  *(.vectors)
  .vectors       0x00000000       0x26 d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr4/crtm8.o
                 0x00000000                __vector_default
@@ -190,28 +190,28 @@ LOAD d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/a
                 0x00000046                __vector_10
                 0x00000046                __vector_16
                 0x00000046                __vector_18
- .text          0x00000048       0x3a AVRGCC5.o
+ .text          0x00000048       0x86 AVRGCC5.o
                 0x00000048                __vector_2
                 0x00000066                main
- .text          0x00000082       0x1e button.o
-                0x00000082                button_config
-                0x00000088                check_button_pin_status
- .text          0x000000a0       0x18 interrupt_lib.o
-                0x000000a0                external_intr_config
- .text          0x000000b8       0x20 led.o
-                0x000000b8                led_config
-                0x000000c6                led_func
- .text          0x000000d8        0x0 d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_exit.o)
- .text          0x000000d8        0x0 d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_clear_bss.o)
-                0x000000d8                . = ALIGN (0x2)
+ .text          0x000000ce       0x1e button.o
+                0x000000ce                button_config
+                0x000000d4                check_button_pin_status
+ .text          0x000000ec       0x16 interrupt_lib.o
+                0x000000ec                external_intr_config
+ .text          0x00000102       0x20 led.o
+                0x00000102                led_config
+                0x00000110                led_func
+ .text          0x00000122        0x0 d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_exit.o)
+ .text          0x00000122        0x0 d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_clear_bss.o)
+                0x00000122                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x000000d8        0x0 d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_exit.o)
- .text.libgcc   0x000000d8        0x0 d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_clear_bss.o)
-                0x000000d8                . = ALIGN (0x2)
+ .text.libgcc   0x00000122        0x0 d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_exit.o)
+ .text.libgcc   0x00000122        0x0 d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_clear_bss.o)
+                0x00000122                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000000d8        0x0 d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_exit.o)
-                0x000000d8                _exit
-                0x000000d8                exit
+ .fini9         0x00000122        0x0 d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_exit.o)
+                0x00000122                _exit
+                0x00000122                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -230,11 +230,11 @@ LOAD d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000000d8        0x4 d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_exit.o)
+ .fini0         0x00000122        0x4 d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr4\libgcc.a(_exit.o)
  *(.fini0)
-                0x000000dc                _etext = .
+                0x00000126                _etext = .
 
-.data           0x00800060        0x0 load address 0x000000dc
+.data           0x00800060        0x0 load address 0x00000126
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr4/crtm8.o
@@ -267,8 +267,8 @@ LOAD d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/a
  *(.bss*)
  *(COMMON)
                 0x00800062                PROVIDE (__bss_end, .)
-                0x000000dc                __data_load_start = LOADADDR (.data)
-                0x000000dc                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000126                __data_load_start = LOADADDR (.data)
+                0x00000126                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800062        0x0
                 0x00800062                PROVIDE (__noinit_start, .)
@@ -351,27 +351,27 @@ LOAD d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/a
  .debug_pubnames
                 0x000000c5       0x2e led.o
 
-.debug_info     0x00000000      0x389
+.debug_info     0x00000000      0x4e8
  *(.debug_info)
- .debug_info    0x00000000       0xcf AVRGCC5.o
- .debug_info    0x000000cf      0x188 button.o
- .debug_info    0x00000257       0x7e interrupt_lib.o
- .debug_info    0x000002d5       0xb4 led.o
+ .debug_info    0x00000000      0x22e AVRGCC5.o
+ .debug_info    0x0000022e      0x188 button.o
+ .debug_info    0x000003b6       0x7e interrupt_lib.o
+ .debug_info    0x00000434       0xb4 led.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev   0x00000000      0x265
+.debug_abbrev   0x00000000      0x316
  *(.debug_abbrev)
- .debug_abbrev  0x00000000       0x85 AVRGCC5.o
- .debug_abbrev  0x00000085      0x119 button.o
- .debug_abbrev  0x0000019e       0x4c interrupt_lib.o
- .debug_abbrev  0x000001ea       0x7b led.o
+ .debug_abbrev  0x00000000      0x136 AVRGCC5.o
+ .debug_abbrev  0x00000136      0x119 button.o
+ .debug_abbrev  0x0000024f       0x4c interrupt_lib.o
+ .debug_abbrev  0x0000029b       0x7b led.o
 
-.debug_line     0x00000000      0x4a5
+.debug_line     0x00000000      0x591
  *(.debug_line)
- .debug_line    0x00000000      0x11e AVRGCC5.o
- .debug_line    0x0000011e      0x189 button.o
- .debug_line    0x000002a7       0xfc interrupt_lib.o
- .debug_line    0x000003a3      0x102 led.o
+ .debug_line    0x00000000      0x20a AVRGCC5.o
+ .debug_line    0x0000020a      0x189 button.o
+ .debug_line    0x00000393       0xfc interrupt_lib.o
+ .debug_line    0x0000048f      0x102 led.o
 
 .debug_frame    0x00000000       0xb0
  *(.debug_frame)
@@ -380,21 +380,22 @@ LOAD d:/extensions/atmel/avrgcc/3.3.1.27/avrtoolchain/bin/../lib/gcc/avr/4.5.1/a
  .debug_frame   0x00000060       0x20 interrupt_lib.o
  .debug_frame   0x00000080       0x30 led.o
 
-.debug_str      0x00000000      0x199
+.debug_str      0x00000000      0x1cd
  *(.debug_str)
- .debug_str     0x00000000       0xb6 AVRGCC5.o
-                                 0xfc (size before relaxing)
- .debug_str     0x000000b6       0x9a button.o
+ .debug_str     0x00000000      0x11c AVRGCC5.o
+                                0x162 (size before relaxing)
+ .debug_str     0x0000011c       0x68 button.o
                                 0x161 (size before relaxing)
- .debug_str     0x00000150       0x2a interrupt_lib.o
+ .debug_str     0x00000184       0x2a interrupt_lib.o
                                  0xd9 (size before relaxing)
- .debug_str     0x0000017a       0x1f led.o
+ .debug_str     0x000001ae       0x1f led.o
                                  0xe6 (size before relaxing)
 
-.debug_loc      0x00000000       0x6e
+.debug_loc      0x00000000      0x146
  *(.debug_loc)
- .debug_loc     0x00000000       0x46 button.o
- .debug_loc     0x00000046       0x28 led.o
+ .debug_loc     0x00000000       0xd8 AVRGCC5.o
+ .debug_loc     0x000000d8       0x46 button.o
+ .debug_loc     0x0000011e       0x28 led.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -402,12 +403,12 @@ OUTPUT(AVRGCC5.elf elf32-avr)
 LOAD linker stubs
 
 .debug_pubtypes
-                0x00000000       0x92
+                0x00000000       0xac
  .debug_pubtypes
-                0x00000000       0x1e AVRGCC5.o
+                0x00000000       0x38 AVRGCC5.o
  .debug_pubtypes
-                0x0000001e       0x38 button.o
+                0x00000038       0x38 button.o
  .debug_pubtypes
-                0x00000056       0x1e interrupt_lib.o
+                0x00000070       0x1e interrupt_lib.o
  .debug_pubtypes
-                0x00000074       0x1e led.o
+                0x0000008e       0x1e led.o
