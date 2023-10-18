@@ -37,6 +37,7 @@ SUBDIRS :=
 C_SRCS +=  \
 ../AVRGCC5.c \
 ../button.c \
+../interrupt_lib.c \
 ../led.c
 
 
@@ -49,24 +50,28 @@ ASM_SRCS +=
 OBJS +=  \
 AVRGCC5.o \
 button.o \
+interrupt_lib.o \
 led.o
 
 
 OBJS_AS_ARGS +=  \
 AVRGCC5.o \
 button.o \
+interrupt_lib.o \
 led.o
 
 
 C_DEPS +=  \
 AVRGCC5.d \
 button.d \
+interrupt_lib.d \
 led.d
 
 
 C_DEPS_AS_ARGS +=  \
 AVRGCC5.d \
 button.d \
+interrupt_lib.d \
 led.d
 
 
@@ -79,6 +84,8 @@ ADDITIONAL_DEPENDENCIES:=
 OUTPUT_FILE_DEP:= ./makedep.mk
 
 # AVR32/GNU C Compiler
+
+
 
 
 

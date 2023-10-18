@@ -65,6 +65,12 @@
     <Compile Include="button.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="interrupt_lib.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="interrupt_lib.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="led.c">
       <SubType>compile</SubType>
     </Compile>
