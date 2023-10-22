@@ -25,16 +25,20 @@ void led_config(void)
 	PORTC &= ~((1 << LED_PIN) | (1 << INTR_LED_PIN));
 }
 
-void led_func(bool* is_button_pressed) 
+void led_intr_func(bool* itr_is_button_pressed) 
 {
-	if (*(is_button_pressed))
-	{
-		PORTC |= (1 << LED_PIN);
-		*(is_button_pressed) = false;
-	}
-	else 
-	{
-		PORTC &= ~(1 << LED_PIN);
-	}
+	if (*(itr_is_button_pressed))
+		{
+			PORTC |= (1 << INTR_LED_PIN);
+			_delay_ms(1000);
+			PORTC &= ~(1 << INTR_LED_PIN);
+			_delay_ms(1000);
+			PORTC |= (1 << INTR_LED_PIN);
+			_delay_ms(1000);
+			PORTC &= ~(1 << INTR_LED_PIN);
+			*(itr_is_button_pressed) = false;
+		} else {
+			PORTC &= ~(1 << INTR_LED_PIN);
+		}
 }
 

@@ -15,6 +15,6 @@
 
 void led_config(void);
 
-void led_func(bool* is_button_pressed);
+void led_intr_func(bool* itr_is_button_pressed);
 
 #endif /* LED_H_ */
