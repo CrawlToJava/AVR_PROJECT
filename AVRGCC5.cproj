@@ -56,25 +56,13 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AVRGCC5.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="button.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="button.h">
+    <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="interrupt_lib.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="interrupt_lib.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="led.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="led.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="timer_config.c">

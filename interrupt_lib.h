@@ -9,6 +9,7 @@
 #ifndef INTERRUPT_LIB_H_
 #define INTERRUPT_LIB_H_
 
+#define EXT_INTR_PIN_ZERO PD2
 #define EXT_INTR_PIN_ONE PD3
 
 void external_intr_config(void);

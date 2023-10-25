@@ -8,14 +8,32 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-void external_intr_config(void) 
+static void external_intr_zero_config(void) 
+{
+	/*
+	* MCUCR - The MCU Control Register contains control bits for interrupt sense control
+	*/
+	MCUCR |= (1 << ISC01);
+	MCUCR &= ~(1 << ISC00);
+	GICR |= (1 << INT0);
+	DDRD &= ~(1 << EXT_INTR_PIN_ZERO);
+	PORTD |= (1 << EXT_INTR_PIN_ZERO);
+}
+
+static void external_intr_one_config(void) 
 {
 	/*
 	* MCUCR - The MCU Control Register contains control bits for interrupt sense control
 	*/
 	MCUCR |= (1 << ISC11);
 	MCUCR &= ~(1 << ISC10);
-	GICR = (1 << INT1);
+	GICR |= (1 << INT1);
 	DDRD &= ~(1 << EXT_INTR_PIN_ONE);
 	PORTD |= (1 << EXT_INTR_PIN_ONE);
+}
+
+void external_intr_config(void) 
+{
+	external_intr_zero_config();
+	external_intr_one_config();
 }
