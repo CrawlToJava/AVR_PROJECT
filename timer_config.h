@@ -13,6 +13,8 @@
 
 void timer_counter_zero_config(void);
 
+void timer_counter_one_config(void);
+
 void count_ms_from_tc_zero(uint64_t* ms_from_tc);
 
 #endif /* TIMER_CONFIG_H_ */

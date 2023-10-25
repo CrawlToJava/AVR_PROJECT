@@ -8,9 +8,8 @@
 #include <avr/io.h>
 #include <avr/delay.h>
 #include <avr/interrupt.h>
+#include <stdbool.h>
 
-#include "led.h"
-#include "button.h"
 #include "interrupt_lib.h"
 #include "timer_config.h"
 
@@ -18,34 +17,31 @@
 
 uint64_t ms_from_tc = 0;
 
-bool is_button_pressed = false;
-bool itr_is_button_pressed = false;
+bool external_intr_zero_flag = false;
+bool external_intr_one_flag = false;
+
+ISR(INT0_vect) 
+{
+	external_intr_zero_flag = true;
+}
 
 ISR(INT1_vect) 
 {
-	itr_is_button_pressed = true;
+	external_intr_one_flag = true;
 }
 
 int main(void)
 {
-	led_config();
-	button_config();
 	external_intr_config();
 	timer_counter_zero_config();
+	timer_counter_one_config();
 	sei();
+	DDRB |= (1 << PB0);
+	PORTB &= ~(1 << PB0);
     while(1)
     {
+		OCR1A = 0;
+		PORTB &= ~(1 << PB0);
 		count_ms_from_tc_zero(&ms_from_tc);
-		if(ms_from_tc >= 2000) 
-		{
-			PORTC |= (1 << PC1);
-		} 
-		if(ms_from_tc >= 4000) 
-		{
-			PORTC &= ~(1 << PC1);
-			ms_from_tc = 0;
-		}
-		led_intr_func(&itr_is_button_pressed);
-		check_button_pin_status(&is_button_pressed);
     }
 }

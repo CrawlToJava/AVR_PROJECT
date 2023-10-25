@@ -35,10 +35,8 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../AVRGCC5.c \
-../button.c \
+../main.c \
 ../interrupt_lib.c \
-../led.c \
 ../timer_config.c
 
 
@@ -49,34 +47,26 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-AVRGCC5.o \
-button.o \
+main.o \
 interrupt_lib.o \
-led.o \
 timer_config.o
 
 
 OBJS_AS_ARGS +=  \
-AVRGCC5.o \
-button.o \
+main.o \
 interrupt_lib.o \
-led.o \
 timer_config.o
 
 
 C_DEPS +=  \
-AVRGCC5.d \
-button.d \
+main.d \
 interrupt_lib.d \
-led.d \
 timer_config.d
 
 
 C_DEPS_AS_ARGS +=  \
-AVRGCC5.d \
-button.d \
+main.d \
 interrupt_lib.d \
-led.d \
 timer_config.d
 
 
@@ -96,14 +86,10 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 
 
 
-
-
-
-
 ./%.o: .././%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
-	$(QUOTE)C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -O1 -fpack-struct -fshort-enums -g2 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega8  -o"$@" "$<" 
+	$(QUOTE)D:\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -funsigned-char -funsigned-bitfields -O1 -fpack-struct -fshort-enums -g2 -Wall -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega8  -o"$@" "$<" 
 	@echo Finished building: $<
 
 
@@ -131,12 +117,12 @@ all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
 $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP)
 	@echo Building target: $@
 	@echo Invoking: AVR/GNU C Linker
-	$(QUOTE)C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="AVRGCC5.map" -Wl,-lm   -mmcu=atmega8  
+	$(QUOTE)D:\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="AVRGCC5.map" -Wl,-lm   -mmcu=atmega8  
 	@echo Finished building target: $@
-	"C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature  "AVRGCC5.elf" "AVRGCC5.hex"
-	"C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "AVRGCC5.elf" "AVRGCC5.eep" || exit 0
-	"C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-objdump.exe" -h -S "AVRGCC5.elf" > "AVRGCC5.lss"
-	"C:\Program Files (x86)\Atmel\AVR Studio 5.1\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-size.exe" -C --mcu=atmega8  "AVRGCC5.elf"
+	"D:\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature  "AVRGCC5.elf" "AVRGCC5.hex"
+	"D:\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "AVRGCC5.elf" "AVRGCC5.eep" || exit 0
+	"D:\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-objdump.exe" -h -S "AVRGCC5.elf" > "AVRGCC5.lss"
+	"D:\extensions\Atmel\AVRGCC\3.3.1.27\AVRToolchain\bin\avr-size.exe" -C --mcu=atmega8  "AVRGCC5.elf"
 	
 
 
